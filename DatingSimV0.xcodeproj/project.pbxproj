@@ -13,6 +13,8 @@
 		5EB0A25C1DB9E5B600A4A5F6 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB0A25B1DB9E5B600A4A5F6 /* MessagesViewController.swift */; };
 		5EB0A25F1DB9E5B600A4A5F6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EB0A25D1DB9E5B600A4A5F6 /* MainInterface.storyboard */; };
 		5EB0A2611DB9E5B600A4A5F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EB0A2601DB9E5B600A4A5F6 /* Assets.xcassets */; };
+		5EB0A26D1DB9F15F00A4A5F6 /* UserRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB0A26C1DB9F15F00A4A5F6 /* UserRegistrationViewController.swift */; };
+		5EB0A2721DBA037800A4A5F6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB0A2711DBA037800A4A5F6 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		5EB0A25E1DB9E5B600A4A5F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5EB0A2601DB9E5B600A4A5F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5EB0A2621DB9E5B600A4A5F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5EB0A26C1DB9F15F00A4A5F6 /* UserRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationViewController.swift; sourceTree = "<group>"; };
+		5EB0A2711DBA037800A4A5F6 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,12 +106,22 @@
 		5EB0A25A1DB9E5B600A4A5F6 /* MessagesExtension */ = {
 			isa = PBXGroup;
 			children = (
+				5EB0A26E1DBA025500A4A5F6 /* Models */,
 				5EB0A25B1DB9E5B600A4A5F6 /* MessagesViewController.swift */,
+				5EB0A26C1DB9F15F00A4A5F6 /* UserRegistrationViewController.swift */,
 				5EB0A25D1DB9E5B600A4A5F6 /* MainInterface.storyboard */,
 				5EB0A2601DB9E5B600A4A5F6 /* Assets.xcassets */,
 				5EB0A2621DB9E5B600A4A5F6 /* Info.plist */,
 			);
 			path = MessagesExtension;
+			sourceTree = "<group>";
+		};
+		5EB0A26E1DBA025500A4A5F6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5EB0A2711DBA037800A4A5F6 /* Player.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +227,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EB0A26D1DB9F15F00A4A5F6 /* UserRegistrationViewController.swift in Sources */,
+				5EB0A2721DBA037800A4A5F6 /* Player.swift in Sources */,
 				5EB0A25C1DB9E5B600A4A5F6 /* MessagesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
