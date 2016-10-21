@@ -106,6 +106,11 @@ class MessagesViewController: MSMessagesAppViewController {
         // Called before the extension transitions to a new presentation style.
     
         // Use this method to prepare for the change in presentation style.
+        guard let conversation = activeConversation else { fatalError("Expected an active converstation") }
+        
+        // Present the view controller appropriate for the conversation and presentation style.
+        presentViewController(for: conversation, with: presentationStyle)
+
         
         print("*** Entered willTransition()")
         
@@ -129,16 +134,19 @@ class MessagesViewController: MSMessagesAppViewController {
     
     private func presentViewController(for conversation: MSConversation, with presentationStyle: MSMessagesAppPresentationStyle) {
         // Determine the controller to present.
-        let controller: UIViewController
-        controller = instantiateUserRegController()
+        var controller: UIViewController
+        //controller = instantiateUserRegController()
         
-        /* if presentationStyle == .compact {
+         if presentationStyle == .compact {
+            print("*** Compact")
             // Show the starting/joining screen
             controller = instantiateUserRegController()
-        }
+         }
         else {
+            print("*** Expanded")
+            controller =  instantiatePlayerInfoController()
             // Do nothing
-        }*/
+        }
         
         // Remove any existing child controllers.
         for child in childViewControllers {
@@ -164,6 +172,14 @@ class MessagesViewController: MSMessagesAppViewController {
     
     private func instantiateUserRegController() -> UIViewController {
         guard let controller = storyboard?.instantiateViewController(withIdentifier: UserRegistrationViewController.storyboardIdentifier) as? UserRegistrationViewController else { fatalError("Unable to instantiate an UserRegistrationViewController from the storyboard") }
+        
+        controller.msgController = self
+        
+        return controller
+    }
+    
+    private func instantiatePlayerInfoController() -> UIViewController {
+        guard let controller = storyboard?.instantiateViewController(withIdentifier: PlayerInfoTableViewController.storyboardIdentifier) as? PlayerInfoTableViewController else { fatalError("Unable to instantiate an UserRegistrationViewController from the storyboard") }
         
         controller.msgController = self
         

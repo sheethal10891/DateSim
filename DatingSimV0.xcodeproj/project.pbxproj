@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56FB34751DBA12F0009DA80E /* PlayerInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB34741DBA12F0009DA80E /* PlayerInfoTableViewCell.swift */; };
+		56FB34791DBA1516009DA80E /* PlayerInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB34781DBA1516009DA80E /* PlayerInfoTableViewController.swift */; };
+		56FB347B1DBA2430009DA80E /* PlayerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB347A1DBA2430009DA80E /* PlayerInfo.swift */; };
 		5EB0A24D1DB9E5B600A4A5F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EB0A24C1DB9E5B600A4A5F6 /* Assets.xcassets */; };
 		5EB0A2541DB9E5B600A4A5F6 /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5EB0A2531DB9E5B600A4A5F6 /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5EB0A2591DB9E5B600A4A5F6 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB0A2581DB9E5B600A4A5F6 /* Messages.framework */; };
@@ -42,6 +45,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		56FB34741DBA12F0009DA80E /* PlayerInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInfoTableViewCell.swift; sourceTree = "<group>"; };
+		56FB34781DBA1516009DA80E /* PlayerInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInfoTableViewController.swift; sourceTree = "<group>"; };
+		56FB347A1DBA2430009DA80E /* PlayerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInfo.swift; sourceTree = "<group>"; };
 		5EB0A2491DB9E5B600A4A5F6 /* DatingSimV0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatingSimV0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EB0A24C1DB9E5B600A4A5F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5EB0A24E1DB9E5B600A4A5F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,8 +116,10 @@
 				5EB0A25B1DB9E5B600A4A5F6 /* MessagesViewController.swift */,
 				5EB0A26C1DB9F15F00A4A5F6 /* UserRegistrationViewController.swift */,
 				5EB0A25D1DB9E5B600A4A5F6 /* MainInterface.storyboard */,
+				56FB34741DBA12F0009DA80E /* PlayerInfoTableViewCell.swift */,
 				5EB0A2601DB9E5B600A4A5F6 /* Assets.xcassets */,
 				5EB0A2621DB9E5B600A4A5F6 /* Info.plist */,
+				56FB34781DBA1516009DA80E /* PlayerInfoTableViewController.swift */,
 			);
 			path = MessagesExtension;
 			sourceTree = "<group>";
@@ -120,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				5EB0A2711DBA037800A4A5F6 /* Player.swift */,
+				56FB347A1DBA2430009DA80E /* PlayerInfo.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -227,6 +236,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56FB34791DBA1516009DA80E /* PlayerInfoTableViewController.swift in Sources */,
+				56FB34751DBA12F0009DA80E /* PlayerInfoTableViewCell.swift in Sources */,
+				56FB347B1DBA2430009DA80E /* PlayerInfo.swift in Sources */,
 				5EB0A26D1DB9F15F00A4A5F6 /* UserRegistrationViewController.swift in Sources */,
 				5EB0A2721DBA037800A4A5F6 /* Player.swift in Sources */,
 				5EB0A25C1DB9E5B600A4A5F6 /* MessagesViewController.swift in Sources */,
@@ -421,6 +433,7 @@
 				5EB0A2671DB9E5B600A4A5F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5EB0A2691DB9E5B600A4A5F6 /* Build configuration list for PBXNativeTarget "DatingSimV0" */ = {
 			isa = XCConfigurationList;
@@ -429,6 +442,7 @@
 				5EB0A26B1DB9E5B600A4A5F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
