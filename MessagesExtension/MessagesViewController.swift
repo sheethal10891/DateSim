@@ -11,13 +11,20 @@ import Messages
 
 class MessagesViewController: MSMessagesAppViewController {
     
+    
+    static var SECS_IN_DAY = 120
+    
     // User Map - dictionary of luid => screen names
     var playerMap:[String: String]?
     
     // Player Data Table - array of Player Objects
-    var players:[Player]?
+    var players:[PlayerInfo]?
     
     // Clock
+    var ts = 0
+    
+    // Player Index for identity
+    var playerIndex = 0
     
     // Player Object
     // - money
@@ -29,8 +36,9 @@ class MessagesViewController: MSMessagesAppViewController {
     // - inbox
     
     required init?(coder aDecoder: NSCoder) {
-        // self.playerMap = ["a", "b"]
         super.init(coder: aDecoder)
+        self.playerMap = [:]
+        self.players = []
     }
     
     override func viewDidLoad() {
@@ -59,8 +67,15 @@ class MessagesViewController: MSMessagesAppViewController {
         
         super.willBecomeActive(with: conversation)
         
-        // Present the view controller appropriate for the conversation and presentation style.
-        presentViewController(for: conversation, with: .compact)
+        if (allParticipantsRegistered(conversation)) {
+            // This will show the full game
+            presentViewController(for: conversation, with: .expanded)
+        } else {
+            // This will show the join screen
+            presentViewController(for: conversation, with: .compact)
+        }
+        
+        
         
     }
     
@@ -128,8 +143,47 @@ class MessagesViewController: MSMessagesAppViewController {
         let userID = activeConversation?.localParticipantIdentifier.uuidString
         print("Registering local user: \(userID!)")
         
-        // Register user on the user Map
-        // Create starting blob in the player object array
+        if (playerMap![userID!] == nil) {
+            let playerStr = "\(self.playerIndex)"
+            let defaultPlayerInfo = PlayerInfo(text: playerStr)
+            
+            if (players == nil) {
+                players = []
+                playerMap = [:]
+            }
+            
+            // Create starting blob in the player object array
+            players?.append(defaultPlayerInfo)
+            
+            // Register user on the user Map
+            playerIndex = playerIndex + 1
+            playerMap![userID!] = playerStr
+            
+            composeMessage()
+        } else {
+            // Do nothing
+            print("*** RegisterLocalUser: player is already registered.")
+        }
+        
+    }
+    
+    
+    private func composeMessage() {
+        /*
+        if let conversation = activeConversation {
+            let layout = MSMessageTemplateLayout()
+            layout.image = nil
+            layout.caption = "Sender is $\(conversation.localParticipantIdentifier.uuidString)"
+            
+            let message = MSMessage()
+            message.layout = layout
+            message.url = URL(string: "emptyURL")
+            
+            conversation.insert(message, completionHandler: { (error: Error?) in
+                print(error)
+            })
+        }
+         */
     }
     
     private func presentViewController(for conversation: MSConversation, with presentationStyle: MSMessagesAppPresentationStyle) {
@@ -184,6 +238,16 @@ class MessagesViewController: MSMessagesAppViewController {
         controller.msgController = self
         
         return controller
+    }
+    
+    private func allParticipantsRegistered(_ conversation: MSConversation) -> Bool {
+        var result = false
+        let allPlayerCount = conversation.remoteParticipantIdentifiers.count
+        print("Found Players: \(allPlayerCount)")
+        if (playerMap?.count == allPlayerCount + 1) {
+            result = true
+        }
+        return result
     }
 
 

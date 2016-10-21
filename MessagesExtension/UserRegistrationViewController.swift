@@ -16,7 +16,6 @@ class UserRegistrationViewController: UIViewController {
     var msgController:MessagesViewController?
     
     @IBAction func onJoinBtnClick(_ sender: AnyObject) {
-        print("Clicked Join Button!")
         if ((msgController) != nil) {
             msgController?.registerLocalUser()
         }
