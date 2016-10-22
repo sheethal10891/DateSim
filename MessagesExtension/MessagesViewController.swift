@@ -15,10 +15,10 @@ class MessagesViewController: MSMessagesAppViewController {
     static var SECS_IN_DAY = 120
     
     // User Map - dictionary of luid => screen names
-    var playerMap:[String: String]?
+    //var playerMap:[String: String]?
     
     // Player Data Table - array of Player Objects
-    var players:[PlayerInfo]?
+    //var players:[PlayerInfo]?
     
     var gameData:GameData
     
@@ -38,8 +38,8 @@ class MessagesViewController: MSMessagesAppViewController {
     // - inbox
     
     required init?(coder aDecoder: NSCoder) {
-        self.playerMap = [:]
-        self.players = []
+        //self.playerMap = [:]
+        //self.players = []
         self.gameData = GameData()
         super.init(coder: aDecoder)
 

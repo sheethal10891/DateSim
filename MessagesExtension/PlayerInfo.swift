@@ -6,18 +6,26 @@
 //  Copyright © 2016 asastry. All rights reserved.
 //
 
-import UIKit
-
-class PlayerInfo: NSObject {
-    // A text description of this item.
-    var text: String
+import Foundation
+class PlayerInfo: EVObject {
     
-    // A Boolean value that determines the completed state of this item.
-    var completed: Bool
+    var money:Int
+    var activity:Activity?
+    var inbox:[String:Bool]  // PlayerID Array
+    var sent:[String:Bool]
+    var hearts:Int = 0
     
-    // Returns a ToDoItem initialized with the given text and default completed value.
-    init(text: String) {
-        self.text = text
-        self.completed = false
+    required init(){
+        
+        money = 100
+        activity = nil
+        inbox = [:]
+        sent = [:]
+        hearts = 0
+        super.init()
+        
+        
     }
+    
+    
 }

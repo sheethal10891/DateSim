@@ -1,5 +1,5 @@
 //
-//  GameData.swift
+//  Activity.swift
 //  DatingSimV0
 //
 //  Created by sshreedhara on 10/22/16.
@@ -7,13 +7,13 @@
 //
 
 import Foundation
-class GameData: EVObject {
 
+
+class Activity: EVObject {
     
-    var playerMap:[String: String]?
+    var withPlayer:String = ""
+    var startTime:Int = 0
+    let duration:Int = 5
     
-    var playerData:[String: PlayerInfo]?
-    
-    var info = "LALALA"
     
 }

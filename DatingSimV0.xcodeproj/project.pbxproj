@@ -15,6 +15,7 @@
 		56FB34861DBB4152009DA80E /* EVReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB34821DBB4152009DA80E /* EVReflection.swift */; };
 		56FB34871DBB4152009DA80E /* EVWorkaroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB34831DBB4152009DA80E /* EVWorkaroundHelpers.swift */; };
 		56FB34891DBB418B009DA80E /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB34881DBB418B009DA80E /* GameData.swift */; };
+		56FB348B1DBB4B10009DA80E /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB348A1DBB4B10009DA80E /* Activity.swift */; };
 		5EB0A24D1DB9E5B600A4A5F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EB0A24C1DB9E5B600A4A5F6 /* Assets.xcassets */; };
 		5EB0A2541DB9E5B600A4A5F6 /* MessagesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5EB0A2531DB9E5B600A4A5F6 /* MessagesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5EB0A2591DB9E5B600A4A5F6 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB0A2581DB9E5B600A4A5F6 /* Messages.framework */; };
@@ -58,6 +59,7 @@
 		56FB34821DBB4152009DA80E /* EVReflection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVReflection.swift; sourceTree = "<group>"; };
 		56FB34831DBB4152009DA80E /* EVWorkaroundHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVWorkaroundHelpers.swift; sourceTree = "<group>"; };
 		56FB34881DBB418B009DA80E /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		56FB348A1DBB4B10009DA80E /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		5EB0A2491DB9E5B600A4A5F6 /* DatingSimV0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatingSimV0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EB0A24C1DB9E5B600A4A5F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5EB0A24E1DB9E5B600A4A5F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				5EB0A2711DBA037800A4A5F6 /* Player.swift */,
 				56FB347A1DBA2430009DA80E /* PlayerInfo.swift */,
 				56FB34881DBB418B009DA80E /* GameData.swift */,
+				56FB348A1DBB4B10009DA80E /* Activity.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				56FB347B1DBA2430009DA80E /* PlayerInfo.swift in Sources */,
 				56FB34891DBB418B009DA80E /* GameData.swift in Sources */,
 				56FB34861DBB4152009DA80E /* EVReflection.swift in Sources */,
+				56FB348B1DBB4B10009DA80E /* Activity.swift in Sources */,
 				56FB34851DBB4152009DA80E /* EVObject.swift in Sources */,
 				56FB34841DBB4152009DA80E /* EVExtensions.swift in Sources */,
 				5EB0A26D1DB9F15F00A4A5F6 /* UserRegistrationViewController.swift in Sources */,
