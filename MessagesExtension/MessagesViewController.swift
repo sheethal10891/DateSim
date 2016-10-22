@@ -20,6 +20,8 @@ class MessagesViewController: MSMessagesAppViewController {
     // Player Data Table - array of Player Objects
     var players:[PlayerInfo]?
     
+    var gameData:GameData
+    
     // Clock
     var ts = 0
     
@@ -36,9 +38,11 @@ class MessagesViewController: MSMessagesAppViewController {
     // - inbox
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
         self.playerMap = [:]
         self.players = []
+        self.gameData = GameData()
+        super.init(coder: aDecoder)
+
     }
     
     override func viewDidLoad() {
@@ -169,27 +173,57 @@ class MessagesViewController: MSMessagesAppViewController {
     
     
     private func composeMessage() {
-        /*
+        
+        var jsonData:String = ""
+        //var rawData:Data
         if let conversation = activeConversation {
+            
+            jsonData = gameData.toJsonString()
+            print("*** \(jsonData)")
+            do {
+                 //rawData = try JSONSerialization.data(withJSONObject: playerMap!, options: [])
+                // here "jsonData" is the dictionary encoded in JSON data
+                //jsonData = String(data:rawData,encoding:String.Encoding.utf8)!
+                
+                //jsonData = playerMap.toJSONString;
+               
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+            var components = URLComponents()
+            
+            
+            
+        components.queryItems = [URLQueryItem]()
+            components.queryItems?.append(URLQueryItem(name: "playerInfo", value:jsonData))
             let layout = MSMessageTemplateLayout()
             layout.image = nil
             layout.caption = "Sender is $\(conversation.localParticipantIdentifier.uuidString)"
             
             let message = MSMessage()
             message.layout = layout
-            message.url = URL(string: "emptyURL")
+            message.url = components.url!
             
             conversation.insert(message, completionHandler: { (error: Error?) in
                 print(error)
             })
         }
-         */
+        
     }
     
     private func presentViewController(for conversation: MSConversation, with presentationStyle: MSMessagesAppPresentationStyle) {
         // Determine the controller to present.
         var controller: UIViewController
         //controller = instantiateUserRegController()
+        
+        if( conversation.selectedMessage != nil) {
+                getGameData(from: conversation.selectedMessage!)
+        }
+        else {
+            // initialize stuff
+        }
+        
         
          if presentationStyle == .compact {
             print("*** Compact")
@@ -224,6 +258,27 @@ class MessagesViewController: MSMessagesAppViewController {
         controller.didMove(toParentViewController: self)
     }
     
+    
+    private func getGameData(from message:MSMessage) -> Void {
+        
+        let messageURL = message.url
+         print("*** URL \(messageURL)")
+        
+       let urlComponents = NSURLComponents(url: messageURL!, resolvingAgainstBaseURL: false)
+        let queryItems = urlComponents?.queryItems //else { return nil }
+       
+        for queryItem in queryItems!
+        {
+            guard queryItem.value != nil else { continue }
+            if queryItem.name == "playerInfo" {
+                self.gameData = GameData(json:queryItem.value)
+            }
+            
+        
+        }
+        
+    }
+    
     private func instantiateUserRegController() -> UIViewController {
         guard let controller = storyboard?.instantiateViewController(withIdentifier: UserRegistrationViewController.storyboardIdentifier) as? UserRegistrationViewController else { fatalError("Unable to instantiate an UserRegistrationViewController from the storyboard") }
         
@@ -232,7 +287,8 @@ class MessagesViewController: MSMessagesAppViewController {
         return controller
     }
     
-    private func instantiatePlayerInfoController() -> UIViewController {
+    
+        private func instantiatePlayerInfoController() -> UIViewController {
         guard let controller = storyboard?.instantiateViewController(withIdentifier: PlayerInfoTableViewController.storyboardIdentifier) as? PlayerInfoTableViewController else { fatalError("Unable to instantiate an UserRegistrationViewController from the storyboard") }
         
         controller.msgController = self
