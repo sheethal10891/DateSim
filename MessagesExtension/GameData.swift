@@ -9,11 +9,19 @@
 import Foundation
 class GameData: EVObject {
 
+    // Player Index for identity
+    var playerIndex = 0
     
-    var playerMap:[String: String]?
+    // Array of active players
+    var playerMap:[String]?
     
-    var playerData:[String: PlayerInfo]?
+    // Array of each player's data
+    //var playerData:[PlayerInfo]?
     
-    var info = "LALALA"
+    // Creating 4 player objects 
+    var player0:PlayerInfo?
+    var player1:PlayerInfo?
+    var player2:PlayerInfo?
+    var player3:PlayerInfo?
     
 }

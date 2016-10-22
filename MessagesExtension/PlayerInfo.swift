@@ -9,18 +9,20 @@
 import Foundation
 class PlayerInfo: EVObject {
     
+    var name:String
     var money:Int
     var activity:Activity?
-    var inbox:[String:Bool]  // PlayerID Array
-    var sent:[String:Bool]
+    var inbox:[Bool]  
+    var sent:[Bool]
     var hearts:Int = 0
     
     required init(){
         
+        name = "ANAMIKA"
         money = 100
         activity = nil
-        inbox = [:]
-        sent = [:]
+        inbox = []
+        sent = []
         hearts = 0
         super.init()
         

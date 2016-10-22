@@ -9,40 +9,32 @@
 import UIKit
 import Messages
 
+class User: EVObject {
+    var id: Int = 0
+    var name: String = ""
+    var friends: [User]? = []
+}
+
 class MessagesViewController: MSMessagesAppViewController {
     
     
     static var SECS_IN_DAY = 120
     
-    // User Map - dictionary of luid => screen names
-    //var playerMap:[String: String]?
+    var playerNames:[String]
     
-    // Player Data Table - array of Player Objects
-    //var players:[PlayerInfo]?
-    
+    // The entire state of the game needs to be one object
+    // so that we can JSON encode and send it
     var gameData:GameData
     
-    // Clock
-    var ts = 0
-    
-    // Player Index for identity
-    var playerIndex = 0
-    
-    // Player Object
-    // - money
-    // - activity object
-    //    - busyUntilTS
-    //    - busyWithTaskID
-    // - hearts
-    // - requests sent
-    // - inbox
-    
     required init?(coder aDecoder: NSCoder) {
-        //self.playerMap = [:]
-        //self.players = []
-        self.gameData = GameData()
+        playerNames = []
+        playerNames.append("Sugar Daddy")
+        playerNames.append("Hot Mama")
+        playerNames.append("Baby Cakes")
+        playerNames.append("Mother Clucker")
+        
+        gameData = GameData()
         super.init(coder: aDecoder)
-
     }
     
     override func viewDidLoad() {
@@ -71,6 +63,14 @@ class MessagesViewController: MSMessagesAppViewController {
         
         super.willBecomeActive(with: conversation)
         
+        // TESt code: 
+        // let json:String = "{\"id\": 24, \"name\": \"Bob Jefferson\", \"friends\": [{\"id\": 29, \"name\": \"Jen Jackson\"}]}"
+        // let user = User(json: json)
+        // let jen = user.friends?[1]
+
+        // Check if the game is initialized yet and set the game state from the active message
+        initializeGameState(with: conversation)
+        
         if (allParticipantsRegistered(conversation)) {
             // This will show the full game
             presentViewController(for: conversation, with: .expanded)
@@ -78,9 +78,6 @@ class MessagesViewController: MSMessagesAppViewController {
             // This will show the join screen
             presentViewController(for: conversation, with: .compact)
         }
-        
-        
-        
     }
     
     override func didResignActive(with conversation: MSConversation) {
@@ -125,10 +122,10 @@ class MessagesViewController: MSMessagesAppViewController {
         // Called before the extension transitions to a new presentation style.
     
         // Use this method to prepare for the change in presentation style.
-        guard let conversation = activeConversation else { fatalError("Expected an active converstation") }
+        // guard let conversation = activeConversation else { fatalError("Expected an active converstation") }
         
         // Present the view controller appropriate for the conversation and presentation style.
-        presentViewController(for: conversation, with: presentationStyle)
+        // presentViewController(for: conversation, with: presentationStyle)
 
         
         print("*** Entered willTransition()")
@@ -145,24 +142,24 @@ class MessagesViewController: MSMessagesAppViewController {
     
     public func registerLocalUser() {
         let userID = activeConversation?.localParticipantIdentifier.uuidString
-        print("Registering local user: \(userID!)")
+        print("*** Registering local user: \(userID!)")
         
-        if (playerMap![userID!] == nil) {
-            let playerStr = "\(self.playerIndex)"
-            let defaultPlayerInfo = PlayerInfo(text: playerStr)
+        let playerIndex = getRegIndex(for: userID!)
+        
+        if (playerIndex == -1) {
             
-            if (players == nil) {
-                players = []
-                playerMap = [:]
-            }
+            let defaultPlayerInfo = PlayerInfo()
+            let playerIndex = gameData.playerMap!.count
+            defaultPlayerInfo.name = playerNames[playerIndex]
             
             // Create starting blob in the player object array
-            players?.append(defaultPlayerInfo)
+            gameData.setValue(defaultPlayerInfo, forKey: "player\(playerIndex)")
+            //gameData.playerData["player\(playerIndex)"] = defaul
             
             // Register user on the user Map
-            playerIndex = playerIndex + 1
-            playerMap![userID!] = playerStr
+            gameData.playerMap!.append(userID!)
             
+            // Registration is done - send an update.
             composeMessage()
         } else {
             // Do nothing
@@ -171,35 +168,47 @@ class MessagesViewController: MSMessagesAppViewController {
         
     }
     
+    private func getRegIndex(for playerLocalID:String) -> Int {
+        var result:Int?
+        if (gameData.playerMap != nil) {
+            result = gameData.playerMap!.index(of: playerLocalID)
+        }
+        
+        if (result == nil) {
+            result = -1
+        }
+        return result!
+    }
+    
+    private func initializeGameState(with conversation:MSConversation) {
+    
+        if (conversation.selectedMessage == nil) {
+            // If the game state is uninitialized - initialize it
+            if (gameData.playerMap == nil) {
+                gameData.playerMap = []
+            }
+        } else {
+            // Game state should already be initialized
+            getGameData(from: conversation.selectedMessage!)
+        }
+        
+    }
+    
     
     private func composeMessage() {
         
         var jsonData:String = ""
-        //var rawData:Data
+        
         if let conversation = activeConversation {
-            
             jsonData = gameData.toJsonString()
-            print("*** \(jsonData)")
-            do {
-                 //rawData = try JSONSerialization.data(withJSONObject: playerMap!, options: [])
-                // here "jsonData" is the dictionary encoded in JSON data
-                //jsonData = String(data:rawData,encoding:String.Encoding.utf8)!
-                
-                //jsonData = playerMap.toJSONString;
-               
-            } catch {
-                print(error.localizedDescription)
-            }
+            print("*** composeMessage: \(jsonData)")
             
             var components = URLComponents()
-            
-            
-            
-        components.queryItems = [URLQueryItem]()
-            components.queryItems?.append(URLQueryItem(name: "playerInfo", value:jsonData))
+            components.queryItems = [URLQueryItem]()
+            components.queryItems?.append(URLQueryItem(name: "gameData", value:jsonData))
             let layout = MSMessageTemplateLayout()
             layout.image = nil
-            layout.caption = "Sender is $\(conversation.localParticipantIdentifier.uuidString)"
+            layout.caption = "$\(conversation.localParticipantIdentifier.uuidString) just played their move!"
             
             let message = MSMessage()
             message.layout = layout
@@ -209,31 +218,18 @@ class MessagesViewController: MSMessagesAppViewController {
                 print(error)
             })
         }
-        
     }
     
     private func presentViewController(for conversation: MSConversation, with presentationStyle: MSMessagesAppPresentationStyle) {
+        
         // Determine the controller to present.
         var controller: UIViewController
-        //controller = instantiateUserRegController()
-        
-        if( conversation.selectedMessage != nil) {
-                getGameData(from: conversation.selectedMessage!)
-        }
-        else {
-            // initialize stuff
-        }
-        
-        
-         if presentationStyle == .compact {
-            print("*** Compact")
-            // Show the starting/joining screen
+        if presentationStyle == .compact {
+            print("*** Compact Screen - Calling User Registration")
             controller = instantiateUserRegController()
-         }
-        else {
-            print("*** Expanded")
+        } else {
+            print("*** Expanded Screen - Calling PlayerInfoController")
             controller =  instantiatePlayerInfoController()
-            // Do nothing
         }
         
         // Remove any existing child controllers.
@@ -262,19 +258,16 @@ class MessagesViewController: MSMessagesAppViewController {
     private func getGameData(from message:MSMessage) -> Void {
         
         let messageURL = message.url
-         print("*** URL \(messageURL)")
+        print("*** getGameData: URL \(messageURL)")
         
-       let urlComponents = NSURLComponents(url: messageURL!, resolvingAgainstBaseURL: false)
-        let queryItems = urlComponents?.queryItems //else { return nil }
+        let urlComponents = NSURLComponents(url: messageURL!, resolvingAgainstBaseURL: false)
+        let queryItems = urlComponents?.queryItems
        
-        for queryItem in queryItems!
-        {
+        for queryItem in queryItems! {
             guard queryItem.value != nil else { continue }
-            if queryItem.name == "playerInfo" {
+            if queryItem.name == "gameData" {
                 self.gameData = GameData(json:queryItem.value)
             }
-            
-        
         }
         
     }
@@ -288,19 +281,20 @@ class MessagesViewController: MSMessagesAppViewController {
     }
     
     
-        private func instantiatePlayerInfoController() -> UIViewController {
+    private func instantiatePlayerInfoController() -> UIViewController {
         guard let controller = storyboard?.instantiateViewController(withIdentifier: PlayerInfoTableViewController.storyboardIdentifier) as? PlayerInfoTableViewController else { fatalError("Unable to instantiate an UserRegistrationViewController from the storyboard") }
-        
         controller.msgController = self
-        
+            
+        controller.players.append(gameData.player0!)
+            
         return controller
     }
     
     private func allParticipantsRegistered(_ conversation: MSConversation) -> Bool {
         var result = false
-        let allPlayerCount = conversation.remoteParticipantIdentifiers.count
-        print("Found Players: \(allPlayerCount)")
-        if (playerMap?.count == allPlayerCount + 1) {
+        let otherPlayerCount = conversation.remoteParticipantIdentifiers.count
+        print("Found Other Players: \(otherPlayerCount)")
+        if (gameData.playerMap!.count == otherPlayerCount) {
             result = true
         }
         return result

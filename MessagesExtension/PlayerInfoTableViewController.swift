@@ -12,20 +12,17 @@ import UIKit
 class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    var players = [PlayerInfo]()
-        static let storyboardIdentifier = "PlayerInfoTableViewController"
     
-        var msgController:MessagesViewController?
+    var players = [PlayerInfo]()
+    
+    static let storyboardIdentifier = "PlayerInfoTableViewController"
+    
+    var msgController:MessagesViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource=self
         tableView.delegate=self
-        //tableView.register(PlayerInfoTableViewCell.self, forCellReuseIdentifier: "Cell")
-        players.append(PlayerInfo(text : "Avinash"))
-        players.append(PlayerInfo(text : "Apoorva"))
-        players.append(PlayerInfo(text : "Sheethal"))
-        
     }
     
     
@@ -41,8 +38,10 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",
                                                  for: indexPath as IndexPath) as! PlayerInfoTableViewCell
-        let item = players[indexPath.row]
-        cell.playerNameLabel?.text = item.text
+        let player = players[indexPath.row]
+        
+        cell.playerNameLabel?.text = player.name
+        
         return cell
     }
     
