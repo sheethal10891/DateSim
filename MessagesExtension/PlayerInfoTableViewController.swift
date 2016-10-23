@@ -13,6 +13,11 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var playerHeartsIcon: UIImageView!
+    @IBOutlet weak var playerHeartsCount: UILabel!
+    @IBOutlet weak var playerMoneyIcon: UIImageView!
+    @IBOutlet weak var playerMoneyCount: UILabel!
+    
     var players = [PlayerInfo]()
     
     static let storyboardIdentifier = "PlayerInfoTableViewController"
@@ -40,8 +45,8 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
                                                  for: indexPath as IndexPath) as! PlayerInfoTableViewCell
         let player = players[indexPath.row]
         
-        cell.playerNameLabel?.text = player.name
-        
+        cell.resetElements()
+        cell.setState(for: player)
         return cell
     }
     

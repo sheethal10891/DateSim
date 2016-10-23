@@ -24,4 +24,27 @@ class PlayerInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var challengeBtn: UIButton!
     @IBOutlet weak var ignoreBtn: UIButton!
     @IBOutlet weak var delicnedOrBusyText: UILabel!
+    
+    public func resetElements() {
+        playerNameLabel.isHidden = true
+        TestBtn.isHidden = true
+        heartsIcon.isHidden = true
+        heartCount.isHidden = true
+        busyIcon.isHidden = true
+        pendingText.isHidden = true
+        challengeBtn.isHidden = true
+        ignoreBtn.isHidden = true
+        delicnedOrBusyText.isHidden = true
+    }
+    
+    public func setState(for player:PlayerInfo) {
+        
+        playerNameLabel.text = player.name
+        playerNameLabel.isHidden = false
+        
+        heartsIcon.isHidden = false
+        heartCount.text = "\(player.hearts)"
+        heartCount.isHidden = false
+        
+    }
 }
