@@ -203,6 +203,13 @@ class MessagesViewController: MSMessagesAppViewController {
         return result!
     }
     
+    public func setStartWorking(){
+        let playerInfo = gameData.value(forKey: "player"+String(localPlayerRegID)) as! PlayerInfo
+        playerInfo.activity = Activity()
+        playerInfo.activity?.startTime = 123
+        composeMessage()
+    }
+    
     private func initializeGameState(with conversation:MSConversation) {
     
         if (conversation.selectedMessage == nil) {
@@ -241,6 +248,7 @@ class MessagesViewController: MSMessagesAppViewController {
                 print(error)
             })
         }
+        dismiss()
     }
     
     private func presentViewController(for conversation: MSConversation, with presentationStyle: MSMessagesAppPresentationStyle) {

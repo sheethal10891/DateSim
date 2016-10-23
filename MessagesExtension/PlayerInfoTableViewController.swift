@@ -13,9 +13,11 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var startWorkingBtn: UIButton!
     @IBOutlet weak var playerName: UILabel!
     @IBOutlet weak var playerHeartsIcon: UIImageView!
     @IBOutlet weak var playerHeartsCount: UILabel!
+
     @IBOutlet weak var playerMoneyIcon: UIImageView!
     @IBOutlet weak var playerMoneyCount: UILabel!
     
@@ -34,6 +36,10 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         playerHeartsCount.text =  String(localPlayer.hearts)
         playerMoneyIcon.image = UIImage(named: "Apple")
         playerHeartsIcon.image = UIImage(named: "Mango")
+        
+        if((localPlayer.activity) != nil){
+            startWorkingBtn.isHidden = true
+        }
         tableView.dataSource=self
         tableView.delegate=self
     }
@@ -78,6 +84,11 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         
         //AARGH! Can't use hash!!
         msgController?.setInviting(to: "player1")
+    }
+    
+    @IBAction func onStartWorking(_ sender: AnyObject) {
+        msgController?.setStartWorking()
+        
     }
     
 }

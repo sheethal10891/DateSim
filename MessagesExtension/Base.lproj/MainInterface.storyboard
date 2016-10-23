@@ -175,6 +175,9 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azb-dB-0wJ">
                                 <frame key="frameInset" minX="230" minY="88" width="74" height="30"/>
                                 <state key="normal" title="Start Work"/>
+                                <connections>
+                                    <action selector="onStartWorking:" destination="bdM-aP-lnh" eventType="touchUpInside" id="vc7-p9-Z6d"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBy-f7-eWO" userLabel="Player Hearts Text">
                                 <frame key="frameInset" minX="80" minY="95" width="32" height="25"/>
@@ -215,6 +218,7 @@
                         <outlet property="playerMoneyCount" destination="sU4-Qa-Emo" id="1A9-hq-rX7"/>
                         <outlet property="playerMoneyIcon" destination="dQm-06-HzO" id="HbG-Qu-dgv"/>
                         <outlet property="playerName" destination="bNl-B9-HID" id="Mpk-9c-RMQ"/>
+                        <outlet property="startWorkingBtn" destination="azb-dB-0wJ" id="2ad-bL-8Ss"/>
                         <outlet property="tableView" destination="f5c-XU-O87" id="AY6-Rt-Skt"/>
                     </connections>
                 </viewController>
