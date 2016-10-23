@@ -150,25 +150,29 @@ class MessagesViewController: MSMessagesAppViewController {
         
         if (playerIndex == -1) {
             
-            var defaultPlayerInfo = PlayerInfo()
-            let playerIndex = gameData.playerMap!.count
-            defaultPlayerInfo.name = playerNames[playerIndex]
             
-            defaultPlayerInfo.money = 100
-            
-            
-            // Create starting blob in the player object array
-            gameData.setValue(defaultPlayerInfo, forKey: "player\(playerIndex)")
-            
-            // Register user on the user Map
-            gameData.playerMap!.append(userID!)
-            
-            //Set another dummy Value because I can't get two uuid's in the bledy Simulator!
-            defaultPlayerInfo = PlayerInfo()
-            defaultPlayerInfo.name = playerNames[playerIndex+1]
-            defaultPlayerInfo.money = 100
-            gameData.setValue(defaultPlayerInfo, forKey: "player\(playerIndex+1)")
-            
+            // Register all the test users for the hackathon demo
+            for playerOrder in 0...3 {
+                var defaultPlayerInfo = PlayerInfo()
+                defaultPlayerInfo.setInfo(playerOrder)
+                // let playerIndex = gameData.playerMap!.count
+                defaultPlayerInfo.name = playerNames[playerOrder]
+                
+                defaultPlayerInfo.money = 100
+                
+                
+                // Create starting blob in the player object array
+                gameData.setValue(defaultPlayerInfo, forKey: "player\(playerOrder)")
+                
+                // Register user on the user Map
+                gameData.playerMap!.append(userID!)
+                
+                //Set another dummy Value because I can't get two uuid's in the bledy Simulator!
+                // defaultPlayerInfo = PlayerInfo()
+                // defaultPlayerInfo.name = playerNames[playerOrder+1]
+                // defaultPlayerInfo.money = 100
+                // gameData.setValue(defaultPlayerInfo, forKey: "player\(playerIndex+1)")
+            }
             
             // Registration is done - send an update.
             composeMessage()
@@ -322,6 +326,8 @@ class MessagesViewController: MSMessagesAppViewController {
         
         //store the rest in players
         controller.players.append(gameData.player1!)
+        controller.players.append(gameData.player2!)
+        controller.players.append(gameData.player3!)
             
         return controller
     }
@@ -330,7 +336,7 @@ class MessagesViewController: MSMessagesAppViewController {
         var result = false
         let otherPlayerCount = conversation.remoteParticipantIdentifiers.count
         print("Found Other Players: \(otherPlayerCount)")
-        if (gameData.playerMap!.count == otherPlayerCount) {
+        if (gameData.playerMap!.count >= otherPlayerCount) {
             result = true
         }
         return result

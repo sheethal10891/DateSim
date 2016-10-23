@@ -12,8 +12,15 @@ import Foundation
 class Activity: EVObject {
     
     var withPlayer:String = ""
-    var startTime:Int = 0
-    let duration:Int = 5
+    var startTime:Double = 0
+    let duration:Int = 120
+    
+    public func setActivity(with playerID:Int) {
+        if (playerID >= 0) {
+            withPlayer = "\(playerID)"
+        }
+        startTime = NSDate().timeIntervalSince1970
+    }
     
     
 }

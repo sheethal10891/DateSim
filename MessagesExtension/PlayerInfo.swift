@@ -30,5 +30,40 @@ class PlayerInfo: EVObject {
         
     }
     
+    public func setInfo(_ playerID: Int) {
+        switch playerID {
+        case 0:
+            break
+        case 1:
+            
+            activity = nil
+            //because I can't have a hash!
+            inbox = [false,false,false,false]
+            sent = [false,false,false,false]
+            
+            break
+        case 2:
+            money = 100
+            activity = nil
+            //because I can't have a hash!
+            inbox = [false,false,false,false]
+            sent = [false,false,false,false]
+            
+            break
+        case 3:
+            
+            activity = Activity()
+            activity?.setActivity(with: 0)
+            //because I can't have a hash!
+            inbox = [false,false,false,false]
+            sent = [false,false,false,false]
+            
+            break
+        default:
+            money = 100
+            hearts = 0
+        }
+    }
+    
     
 }
