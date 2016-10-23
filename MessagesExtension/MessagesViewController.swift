@@ -20,6 +20,8 @@ class MessagesViewController: MSMessagesAppViewController {
     
     static var SECS_IN_DAY = 120
     
+    var localPlayerRegID = -1
+    
     var playerNames:[String]
     
     // The entire state of the game needs to be one object
@@ -148,16 +150,25 @@ class MessagesViewController: MSMessagesAppViewController {
         
         if (playerIndex == -1) {
             
-            let defaultPlayerInfo = PlayerInfo()
+            var defaultPlayerInfo = PlayerInfo()
             let playerIndex = gameData.playerMap!.count
             defaultPlayerInfo.name = playerNames[playerIndex]
             
+            defaultPlayerInfo.money = 100
+            
+            
             // Create starting blob in the player object array
             gameData.setValue(defaultPlayerInfo, forKey: "player\(playerIndex)")
-            //gameData.playerData["player\(playerIndex)"] = defaul
             
             // Register user on the user Map
             gameData.playerMap!.append(userID!)
+            
+            //Set another dummy Value because I can't get two uuid's in the bledy Simulator!
+            defaultPlayerInfo = PlayerInfo()
+            defaultPlayerInfo.name = playerNames[playerIndex+1]
+            defaultPlayerInfo.money = 100
+            gameData.setValue(defaultPlayerInfo, forKey: "player\(playerIndex+1)")
+            
             
             // Registration is done - send an update.
             composeMessage()
@@ -168,7 +179,19 @@ class MessagesViewController: MSMessagesAppViewController {
         
     }
     
-    private func getRegIndex(for playerLocalID:String) -> Int {
+    public func getLocalPlayerRegIndex()-> Int{
+    let userID = activeConversation?.localParticipantIdentifier.uuidString
+        return getRegIndex(for: userID!)
+    }
+    
+    public func setInviting(to playerName: String){
+        //yeah! Sugar Daddy can send message to Hot Mama only!
+            gameData.player1?.inbox[0] = true
+            gameData.player0?.sent[1] = true
+            composeMessage()
+    }
+    
+    public func getRegIndex(for playerLocalID:String) -> Int {
         var result:Int?
         if (gameData.playerMap != nil) {
             result = gameData.playerMap!.index(of: playerLocalID)
@@ -229,6 +252,7 @@ class MessagesViewController: MSMessagesAppViewController {
             controller = instantiateUserRegController()
         } else {
             print("*** Expanded Screen - Calling PlayerInfoController")
+            localPlayerRegID = getRegIndex(for: (conversation.localParticipantIdentifier.uuidString))
             controller =  instantiatePlayerInfoController()
         }
         
@@ -284,8 +308,12 @@ class MessagesViewController: MSMessagesAppViewController {
     private func instantiatePlayerInfoController() -> UIViewController {
         guard let controller = storyboard?.instantiateViewController(withIdentifier: PlayerInfoTableViewController.storyboardIdentifier) as? PlayerInfoTableViewController else { fatalError("Unable to instantiate an UserRegistrationViewController from the storyboard") }
         controller.msgController = self
-            
-        controller.players.append(gameData.player0!)
+        
+        //if local player store here
+        controller.localPlayer =  gameData.value(forKey: "player" + String(localPlayerRegID)) as! PlayerInfo
+        
+        //store the rest in players
+        controller.players.append(gameData.player1!)
             
         return controller
     }

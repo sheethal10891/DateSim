@@ -21,8 +21,9 @@ class PlayerInfo: EVObject {
         name = "ANAMIKA"
         money = 100
         activity = nil
-        inbox = []
-        sent = []
+        //because I can't have a hash!
+        inbox = [false,false,false,false]
+        sent = [false,false,false,false]
         hearts = 0
         super.init()
         
