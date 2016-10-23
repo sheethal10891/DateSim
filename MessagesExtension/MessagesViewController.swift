@@ -190,8 +190,13 @@ class MessagesViewController: MSMessagesAppViewController {
     
     public func setInviting(to playerName: String){
         //yeah! Sugar Daddy can send message to Hot Mama only!
-            gameData.player1?.inbox[0] = true
-            gameData.player0?.sent[1] = true
+            //gameData.player1?.inbox[0] = true
+            //gameData.player0?.sent[1] = true
+        
+        //to show the has invited part, Setting invite from player2 to player 1. Because both the users on the Simulator are player1!
+        gameData.player0?.inbox[1] = true
+        gameData.player1?.sent[0] = true
+        
             composeMessage()
     }
     
@@ -325,9 +330,9 @@ class MessagesViewController: MSMessagesAppViewController {
         controller.localPlayer =  gameData.value(forKey: "player" + String(localPlayerRegID)) as! PlayerInfo
         
         //store the rest in players
-        controller.players.append(gameData.player1!)
-        controller.players.append(gameData.player2!)
-        controller.players.append(gameData.player3!)
+        controller.players[1]=gameData.player1!
+        controller.players[2]=gameData.player2!
+        controller.players[3]=gameData.player3!
             
         return controller
     }

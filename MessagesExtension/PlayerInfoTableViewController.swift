@@ -11,6 +11,7 @@ import UIKit
 
 class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    @IBOutlet weak var BusyText: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var startWorkingBtn: UIButton!
@@ -21,8 +22,13 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
     @IBOutlet weak var playerMoneyIcon: UIImageView!
     @IBOutlet weak var playerMoneyCount: UILabel!
     
-    var players = [PlayerInfo]()
+    var players:[Int:PlayerInfo]=[:]
     var localPlayer = PlayerInfo()
+    
+    var iAmBusyText = ["I’m going to die lonely and have no-one to love me..",
+                       "We have come to a verdict, you can’t find love/you are a loser?",
+                       "Welcome to Singleville! Population: You..",
+                       "As far as being single goes, you win."]
     
     static let storyboardIdentifier = "PlayerInfoTableViewController"
     
@@ -36,8 +42,13 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         playerHeartsCount.text =  String(localPlayer.hearts)
         playerMoneyIcon.image = UIImage(named: "Apple")
         playerHeartsIcon.image = UIImage(named: "Mango")
+        BusyText.isHidden = true
         
         if((localPlayer.activity) != nil){
+            if(localPlayer.activity?.withPlayer == ""){
+               BusyText.text = iAmBusyText[Int(arc4random_uniform(4))]
+               BusyText.isHidden = false
+            }
             startWorkingBtn.isHidden = true
         }
         tableView.dataSource=self
@@ -57,7 +68,7 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",
                                                  for: indexPath as IndexPath) as! PlayerInfoTableViewCell
-        let player = players[indexPath.row]
+        let player:PlayerInfo = players[indexPath.row + 1]!
         
         cell.resetElements()
         
@@ -70,7 +81,7 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         if(localPlayer.activity?.withPlayer == player.name){
             cell.setState(for: player , with: "busy", index: indexPath.row)
         }
-        else if(player.inbox.count > 0 && player.inbox[(msgController?.localPlayerRegID)!] == true){
+        else if(localPlayer.inbox[indexPath.row + 1] == true){ // yeah! only the second person in the list!
             cell.setState(for: player , with: "hasInvite", index: indexPath.row)
         }
         else {
@@ -84,6 +95,10 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         
         //AARGH! Can't use hash!!
         msgController?.setInviting(to: "player1")
+        
+
+        
+        
     }
     
     @IBAction func onStartWorking(_ sender: AnyObject) {

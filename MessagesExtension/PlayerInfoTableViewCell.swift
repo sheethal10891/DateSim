@@ -30,6 +30,16 @@ class PlayerInfoTableViewCell: UITableViewCell {
     
     var playerController:PlayerInfoTableViewController?
     
+    var invitedText:[String] = ["Are you a magician? Because whenever I look at you everyone else disappears.",
+                       "I have to show you the prettiest girl I’ve ever seen. (show phone with front cam)",
+                       "You must be Jelly, cause jam don’t shake like that.",
+                       "Sorry, I can’t hold on… I’ve already fallen for you.",
+                       "Would you grab my arm so I can tell my friends I’ve been touched by an angel?",
+                       "Was that an earthquake or did you just rock my world?",
+                       "On a scale of 1 to 10, you’re a 9. I’m the 1 you need.",
+                       "Damn Girl is your name Wifi ? Because I’m feeling a connection!",
+                       "You know what material this is? Grabs his shirt Boyfriend material."]
+    
    // var playerInfo:PlayerInfo
     
     public func resetElements() {
@@ -69,12 +79,15 @@ class PlayerInfoTableViewCell: UITableViewCell {
             
             break
         case "hasInvite":
-            pendingText.text = "HasInvite"
-            pendingText.isHidden = false
+            delicnedOrBusyText.text = invitedText[Int(arc4random_uniform(9))]
+            delicnedOrBusyText.isHidden = false
+            TestBtn.setTitle("Yes!!", for: .normal)
             TestBtn.isHidden = false
+            ignoreBtn.setTitle("Nah", for: .normal)
+            ignoreBtn.isHidden = false
             break
         case "canInvite":
-            pendingText.text = "CanInvite"
+            pendingText.text = "Ask " + player.name + " for a date"
             pendingText.isHidden = false
             TestBtn.isHidden = false
            // TestBtn.tag = index
