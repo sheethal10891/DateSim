@@ -19,6 +19,8 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
     @IBOutlet weak var playerHeartsIcon: UIImageView!
     @IBOutlet weak var playerHeartsCount: UILabel!
 
+    @IBAction func OnChallengeBtnClick(_ sender: AnyObject) {
+    }
     @IBOutlet weak var playerMoneyIcon: UIImageView!
     @IBOutlet weak var playerMoneyCount: UILabel!
     
@@ -78,7 +80,7 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         
         // handling only 3 states now
         // ideal scenario, should be checking against the player hash
-        if(localPlayer.activity?.withPlayer == player.name){
+        if(localPlayer.activity?.withPlayer == "\(indexPath.row + 1)"){
             cell.setState(for: player , with: "busy", index: indexPath.row)
         }
         else if(localPlayer.inbox[indexPath.row + 1] == true){ // yeah! only the second person in the list!
@@ -92,13 +94,13 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
     
     
     public func inviting(player:String){
-        
         //AARGH! Can't use hash!!
-        msgController?.setInviting(to: "player1")
-        
-
-        
-        
+        msgController?.setInviting(to: "player1")  
+    }
+    
+    public func acceptInvite(player:String){
+        //AARGH! Can't use hash!!
+        msgController?.setOnADate(with: "player1")
     }
     
     @IBAction func onStartWorking(_ sender: AnyObject) {

@@ -188,17 +188,7 @@ class MessagesViewController: MSMessagesAppViewController {
         return getRegIndex(for: userID!)
     }
     
-    public func setInviting(to playerName: String){
-        //yeah! Sugar Daddy can send message to Hot Mama only!
-            //gameData.player1?.inbox[0] = true
-            //gameData.player0?.sent[1] = true
-        
-        //to show the has invited part, Setting invite from player2 to player 1. Because both the users on the Simulator are player1!
-        gameData.player0?.inbox[1] = true
-        gameData.player1?.sent[0] = true
-        
-            composeMessage()
-    }
+
     
     public func getRegIndex(for playerLocalID:String) -> Int {
         var result:Int?
@@ -211,6 +201,17 @@ class MessagesViewController: MSMessagesAppViewController {
         }
         return result!
     }
+    public func setInviting(to playerName: String){
+        //yeah! Sugar Daddy can send message to Hot Mama only!
+        //gameData.player1?.inbox[0] = true
+        //gameData.player0?.sent[1] = true
+        
+        //to show the has invited part, Setting invite from player2 to player 1. Because both the users on the Simulator are player1!
+        gameData.player0?.inbox[1] = true
+        gameData.player1?.sent[0] = true
+        
+        composeMessage()
+    }
     
     public func setStartWorking(){
         let playerInfo = gameData.value(forKey: "player"+String(localPlayerRegID)) as! PlayerInfo
@@ -218,6 +219,18 @@ class MessagesViewController: MSMessagesAppViewController {
         playerInfo.activity?.startTime = 123
         composeMessage()
     }
+    
+    public func setOnADate(with player:String){
+        gameData.player0?.inbox[1] = false
+        gameData.player1?.sent[0] = false
+        gameData.player0?.activity = Activity()
+        gameData.player0?.activity?.setActivity(with: 1)
+        gameData.player1?.activity = Activity()
+        gameData.player1?.activity?.setActivity(with: 0)
+        gameData.player0?.money-=20
+        composeMessage()
+    }
+    
     
     private func initializeGameState(with conversation:MSConversation) {
     

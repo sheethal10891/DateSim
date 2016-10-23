@@ -24,10 +24,12 @@ class PlayerInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var heartCount: UILabel!
     @IBOutlet weak var busyIcon: UIImageView!
     @IBOutlet weak var pendingText: UILabel!
+    // Yes to response
     @IBOutlet weak var challengeBtn: UIButton!
     @IBOutlet weak var ignoreBtn: UIButton!
     @IBOutlet weak var delicnedOrBusyText: UILabel!
     
+
     var playerController:PlayerInfoTableViewController?
     
     var invitedText:[String] = ["Are you a magician? Because whenever I look at you everyone else disappears.",
@@ -40,7 +42,8 @@ class PlayerInfoTableViewCell: UITableViewCell {
                        "Damn Girl is your name Wifi ? Because I’m feeling a connection!",
                        "You know what material this is? Grabs his shirt Boyfriend material."]
     
-   // var playerInfo:PlayerInfo
+    var onADateText:[String] = ["Hot Mama wants to be your favourite hello and your hardest goodbye.",
+                       "Hot Mama feels you are his/her sunshine on a rainy day",                       "Screw butterflies, I feel the whole zoo when I’m with you"]
     
     public func resetElements() {
 
@@ -61,6 +64,11 @@ class PlayerInfoTableViewCell: UITableViewCell {
         
          playerController?.inviting(player: "player1")//playerInfo.name)
     }
+    
+    //Using this to say yes to the Invite
+    @IBAction func onChallegeClick(_ sender: AnyObject) {
+        playerController?.acceptInvite(player:"player1")
+    }
 
     public func setState(for player:PlayerInfo, with state:String, index:Int) {
     //    playerInfo = player
@@ -73,16 +81,15 @@ class PlayerInfoTableViewCell: UITableViewCell {
         
         switch state {
         case "busy":
-            pendingText.text = "BUSY"
-            pendingText.isHidden = false
-            busyIcon.isHidden = false
-            
+            delicnedOrBusyText.text = onADateText[Int(arc4random_uniform(3))]
+            delicnedOrBusyText.isHidden = false
+            busyIcon.isHidden = false            
             break
         case "hasInvite":
             delicnedOrBusyText.text = invitedText[Int(arc4random_uniform(9))]
             delicnedOrBusyText.isHidden = false
-            TestBtn.setTitle("Yes!!", for: .normal)
-            TestBtn.isHidden = false
+            challengeBtn.setTitle("Yes!!", for: .normal)
+            challengeBtn.isHidden = false
             ignoreBtn.setTitle("Nah", for: .normal)
             ignoreBtn.isHidden = false
             break
