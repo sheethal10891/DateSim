@@ -49,10 +49,11 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         
         if((localPlayer.activity) != nil){
             if(localPlayer.activity?.withPlayer == ""){
-               localPlayerBusy = true
+               
                BusyText.text = iAmBusyText[Int(arc4random_uniform(4))]
                BusyText.isHidden = false
             }
+            localPlayerBusy = true
             startWorkingBtn.isHidden = true
         }
         tableView.dataSource=self
