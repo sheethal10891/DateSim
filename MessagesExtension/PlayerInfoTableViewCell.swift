@@ -24,6 +24,7 @@ class PlayerInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var heartCount: UILabel!
     @IBOutlet weak var busyIcon: UIImageView!
     @IBOutlet weak var pendingText: UILabel!
+    @IBOutlet weak var busyImage: UIImageView!
     // Yes to response
     @IBOutlet weak var challengeBtn: UIButton!
     @IBOutlet weak var ignoreBtn: UIButton!
@@ -83,11 +84,15 @@ class PlayerInfoTableViewCell: UITableViewCell {
         case "busy":
             delicnedOrBusyText.text = onADateText[Int(arc4random_uniform(3))]
             delicnedOrBusyText.isHidden = false
-            busyIcon.isHidden = false            
+            delicnedOrBusyText.adjustsFontSizeToFitWidth = true
+            busyIcon.image = UIImage(named: "Banana")
+            busyIcon.isHidden = false
             break
         case "hasInvite":
             delicnedOrBusyText.text = invitedText[Int(arc4random_uniform(9))]
             delicnedOrBusyText.isHidden = false
+            delicnedOrBusyText.adjustsFontSizeToFitWidth = true
+
             challengeBtn.setTitle("Yes!!", for: .normal)
             challengeBtn.isHidden = false
             ignoreBtn.setTitle("Nah", for: .normal)
@@ -95,6 +100,7 @@ class PlayerInfoTableViewCell: UITableViewCell {
             break
         case "canInvite":
             pendingText.text = "Ask " + player.name + " for a date"
+            pendingText.adjustsFontSizeToFitWidth = true
             pendingText.isHidden = false
             TestBtn.isHidden = false
            // TestBtn.tag = index
