@@ -71,7 +71,7 @@ class PlayerInfoTableViewCell: UITableViewCell {
         playerController?.acceptInvite(player:"player1")
     }
 
-    public func setState(for player:PlayerInfo, with state:String, index:Int) {
+    public func setState(for player:PlayerInfo, with state:String, index:Int ,_ busy:Bool) {
     //    playerInfo = player
         playerNameLabel.text = player.name
         playerNameLabel.isHidden = false
@@ -95,14 +95,17 @@ class PlayerInfoTableViewCell: UITableViewCell {
 
             challengeBtn.setTitle("Yes!!", for: .normal)
             challengeBtn.isHidden = false
+            challengeBtn.isEnabled = !busy
             ignoreBtn.setTitle("Nah", for: .normal)
             ignoreBtn.isHidden = false
+            ignoreBtn.isEnabled = !busy
             break
         case "canInvite":
             pendingText.text = "Ask " + player.name + " for a date"
             pendingText.adjustsFontSizeToFitWidth = true
-            pendingText.isHidden = false
+            pendingText.isHidden = busy && false
             TestBtn.isHidden = false
+            TestBtn.isEnabled = !busy
            // TestBtn.tag = index
           //  TestBtn.addTarget(self, action: Selector("buttonClicked:"), for: UIControlEvents.touchUpInside)
             break

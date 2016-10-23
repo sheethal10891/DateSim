@@ -26,6 +26,7 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
     
     var players:[Int:PlayerInfo]=[:]
     var localPlayer = PlayerInfo()
+    var localPlayerBusy = false
     
     var iAmBusyText = ["I’m going to die lonely and have no-one to love me..",
                        "We have come to a verdict, you can’t find love/you are a loser?",
@@ -48,6 +49,7 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         
         if((localPlayer.activity) != nil){
             if(localPlayer.activity?.withPlayer == ""){
+               localPlayerBusy = true
                BusyText.text = iAmBusyText[Int(arc4random_uniform(4))]
                BusyText.isHidden = false
             }
@@ -81,13 +83,13 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         // handling only 3 states now
         // ideal scenario, should be checking against the player hash
         if(localPlayer.activity?.withPlayer == "\(indexPath.row + 1)"){
-            cell.setState(for: player , with: "busy", index: indexPath.row)
+            cell.setState(for: player , with: "busy", index: indexPath.row , localPlayerBusy)
         }
         else if(localPlayer.inbox[indexPath.row + 1] == true){ // yeah! only the second person in the list!
-            cell.setState(for: player , with: "hasInvite", index: indexPath.row)
+            cell.setState(for: player , with: "hasInvite", index: indexPath.row,localPlayerBusy)
         }
         else {
-            cell.setState(for: player , with: "canInvite", index: indexPath.row)
+            cell.setState(for: player , with: "canInvite", index: indexPath.row ,localPlayerBusy)
         }
         return cell
     }
