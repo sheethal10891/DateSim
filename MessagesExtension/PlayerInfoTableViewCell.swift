@@ -93,7 +93,7 @@ class PlayerInfoTableViewCell: UITableViewCell {
             delicnedOrBusyText.isHidden = false
             delicnedOrBusyText.adjustsFontSizeToFitWidth = true
 
-            challengeBtn.setTitle("Yes!!", for: .normal)
+            challengeBtn.setTitle("Yes!", for: .normal)
             challengeBtn.isHidden = false
             challengeBtn.isEnabled = !busy
             ignoreBtn.setTitle("Nah", for: .normal)

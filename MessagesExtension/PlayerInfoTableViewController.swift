@@ -43,8 +43,8 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         playerMoneyCount.text = String(localPlayer.money)
         playerName.text = localPlayer.name
         playerHeartsCount.text =  String(localPlayer.hearts)
-        playerMoneyIcon.image = UIImage(named: "Apple")
-        playerHeartsIcon.image = UIImage(named: "Mango")
+        playerMoneyIcon.image = UIImage(named: "dollar")
+        playerHeartsIcon.image = UIImage(named: "heart")
         BusyText.isHidden = true
         
         if((localPlayer.activity) != nil){
@@ -77,7 +77,7 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         
         cell.resetElements()
         
-        cell.heartsIcon.image = UIImage(named: "Apple")
+        cell.heartsIcon.image = UIImage(named: "heart")
         cell.heartCount.text = String(player.hearts)
         cell.playerController = self
         
