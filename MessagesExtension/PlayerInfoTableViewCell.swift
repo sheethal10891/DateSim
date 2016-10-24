@@ -41,7 +41,7 @@ class PlayerInfoTableViewCell: UITableViewCell {
                        "Was that an earthquake or did you just rock my world?",
                        "On a scale of 1 to 10, you’re a 9. I’m the 1 you need.",
                        "Damn Girl is your name Wifi ? Because I’m feeling a connection!",
-                       "You know what material this is? Grabs his shirt Boyfriend material."]
+                       "You know what material this is? [Grabs his shirt] Boyfriend material."]
     
     var onADateText:[String] = ["Hot Mama wants to be your favourite hello and your hardest goodbye.",
                        "Hot Mama feels you are his/her sunshine on a rainy day",                       "Screw butterflies, I feel the whole zoo when I’m with you"]
