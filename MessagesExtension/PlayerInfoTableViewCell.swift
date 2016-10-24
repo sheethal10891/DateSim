@@ -45,8 +45,12 @@ class PlayerInfoTableViewCell: UITableViewCell {
                        "Damn Girl is your name Wifi ? Because I’m feeling a connection!",
                        "You know what material this is? [Grabs his shirt] Boyfriend material."]
     
-    var onADateText:[String] = ["Hot Mama wants to be your favourite hello and your hardest goodbye.",
-                       "Hot Mama feels you are his/her sunshine on a rainy day",                       "Screw butterflies, I feel the whole zoo when I’m with you"]
+    var onADateText:[String] = [
+        "Hot Mama wants to be your favourite hello and your hardest goodbye.",
+        "Hot Mama feels you are his/her sunshine on a rainy day",
+        "Screw butterflies, I feel the whole zoo when I’m with you.",
+        "My love for you is a journey that starts at Forever and ends at Never.",
+        "You are the reason I'm still breathing, yet you take my breath away."]
     
     var tooBusyText:[String] = ["I have other priorities right now.",
                                 "Sorry, I'm busy attending to other matters.",
@@ -97,7 +101,7 @@ class PlayerInfoTableViewCell: UITableViewCell {
         
         switch state {
         case "busy":
-            delicnedOrBusyText.text = onADateText[Int(arc4random_uniform(3))]
+            delicnedOrBusyText.text = onADateText[Int(arc4random_uniform(5))]
             delicnedOrBusyText.isHidden = false
             delicnedOrBusyText.adjustsFontSizeToFitWidth = true
             busyIcon.image = UIImage(named: "heartsbusy")
