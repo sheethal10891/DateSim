@@ -10,6 +10,8 @@ import UIKit
 
 class PlayerInfoTableViewCell: UITableViewCell {
     
+
+    @IBOutlet weak var AcceptInvite: UIButton!
     // Text field to show the player's name
     @IBOutlet weak var playerNameLabel: UILabel!
 
@@ -57,6 +59,7 @@ class PlayerInfoTableViewCell: UITableViewCell {
         playerNameLabel.isHidden = true
         TestBtn.isHidden = true
         heartsIcon.isHidden = true
+        AcceptInvite.isHidden = true
         heartCount.isHidden = true
         busyIcon.isHidden = true
         pendingText.isHidden = true
@@ -74,6 +77,12 @@ class PlayerInfoTableViewCell: UITableViewCell {
     
     //Using this to say yes to the Invite
     @IBAction func onChallegeClick(_ sender: AnyObject) {
+        playerController?.challengePLayer(player: "player3")
+        
+    }
+    
+    
+    @IBAction func onAcceptInvite(_ sender: AnyObject) {
         playerController?.acceptInvite(player:"player1")
     }
 
@@ -99,9 +108,9 @@ class PlayerInfoTableViewCell: UITableViewCell {
             delicnedOrBusyText.isHidden = false
             delicnedOrBusyText.adjustsFontSizeToFitWidth = true
 
-            challengeBtn.setTitle("Woohoo!", for: .normal)
-            challengeBtn.isHidden = false
-            challengeBtn.isEnabled = !busy
+            AcceptInvite.setTitle("Woohoo!", for: .normal)
+            AcceptInvite.isHidden = false
+            AcceptInvite.isEnabled = !busy
             ignoreBtn.setTitle("No", for: .normal)
             ignoreBtn.isHidden = false
             ignoreBtn.isEnabled = !busy

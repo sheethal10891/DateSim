@@ -107,6 +107,13 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         msgController?.setOnADate(with: "player1")
     }
     
+    public func challengePLayer(player:String){
+        //AARGH! Can't use hash!!
+        msgController?.challengePLayer(player: "player3")
+    }
+    
+    
+    
     @IBAction func onStartWorking(_ sender: AnyObject) {
         msgController?.setStartWorking()
         

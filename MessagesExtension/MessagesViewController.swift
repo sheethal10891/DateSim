@@ -220,6 +220,13 @@ class MessagesViewController: MSMessagesAppViewController {
         composeMessage()
     }
     
+    public func challengePLayer(player playerNumber:String){
+        gameData.player3?.hearts-=1
+        gameData.player3?.activity = nil
+        gameData.player0?.hearts+=1
+        composeMessage("lalala")
+    }
+    
     public func setOnADate(with player:String){
         gameData.player0?.inbox[1] = false
         gameData.player1?.sent[0] = false
@@ -247,7 +254,7 @@ class MessagesViewController: MSMessagesAppViewController {
     }
     
     
-    private func composeMessage() {
+    private func composeMessage(_ message:String = "") {
         
         var jsonData:String = ""
         
@@ -260,8 +267,12 @@ class MessagesViewController: MSMessagesAppViewController {
             components.queryItems?.append(URLQueryItem(name: "gameData", value:jsonData))
             let layout = MSMessageTemplateLayout()
             layout.image = nil
-            layout.caption = "$\(conversation.localParticipantIdentifier.uuidString) just played their move!"
-            
+            if(message==""){
+                layout.caption = "$\(conversation.localParticipantIdentifier.uuidString) just played their move!"
+            }
+            else {
+                layout.caption = "$\(conversation.localParticipantIdentifier.uuidString) just challenged Mother Clucker and Won!"
+            }
             let message = MSMessage()
             message.layout = layout
             message.url = components.url!
