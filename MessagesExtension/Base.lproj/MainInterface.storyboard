@@ -120,9 +120,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXp-Y4-Od8" userLabel="Challenge Button">
                                                     <frame key="frameInset" minX="198" minY="11" width="122" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Challenge?">
-                                                        <color key="titleColor" red="1" green="0.10105221640000001" blue="0.13615345149999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
+                                                    <state key="normal" title="Challenge?"/>
                                                     <connections>
                                                         <action selector="onChallegeClick:" destination="0Nk-Og-ive" eventType="touchUpInside" id="Vkt-Jt-tmu"/>
                                                     </connections>
