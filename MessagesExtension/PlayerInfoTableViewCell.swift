@@ -121,11 +121,11 @@ class PlayerInfoTableViewCell: UITableViewCell {
             
             challengeBtn.setTitle("How dare you!", for: .normal)
             challengeBtn.isHidden = false
-            challengeBtn.isEnabled = true
+            challengeBtn.isEnabled = !busy
             
             ignoreBtn.setTitle("Ignore", for: .normal)
             ignoreBtn.isHidden = false
-            ignoreBtn.isEnabled = true
+            ignoreBtn.isEnabled = !busy
             break
         default:
             TestBtn.isHidden = true
