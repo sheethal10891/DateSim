@@ -46,6 +46,12 @@ class PlayerInfoTableViewCell: UITableViewCell {
     var onADateText:[String] = ["Hot Mama wants to be your favourite hello and your hardest goodbye.",
                        "Hot Mama feels you are his/her sunshine on a rainy day",                       "Screw butterflies, I feel the whole zoo when I’m with you"]
     
+    var tooBusyText:[String] = ["I have other priorities right now.",
+                                "Sorry, I'm busy attending to other matters.",
+                                "Hey, I'm busy being happy, so yeah, not now.",
+                                "Sorry, I dropped my phone and I can’t find it. I’l text you when I find it."
+    ]
+    
     public func resetElements() {
 
         playerNameLabel.isHidden = true
@@ -85,7 +91,7 @@ class PlayerInfoTableViewCell: UITableViewCell {
             delicnedOrBusyText.text = onADateText[Int(arc4random_uniform(3))]
             delicnedOrBusyText.isHidden = false
             delicnedOrBusyText.adjustsFontSizeToFitWidth = true
-            busyIcon.image = UIImage(named: "Banana")
+            busyIcon.image = UIImage(named: "heartsbusy")
             busyIcon.isHidden = false
             break
         case "hasInvite":
@@ -93,10 +99,10 @@ class PlayerInfoTableViewCell: UITableViewCell {
             delicnedOrBusyText.isHidden = false
             delicnedOrBusyText.adjustsFontSizeToFitWidth = true
 
-            challengeBtn.setTitle("Yes!", for: .normal)
+            challengeBtn.setTitle("Woohoo!", for: .normal)
             challengeBtn.isHidden = false
             challengeBtn.isEnabled = !busy
-            ignoreBtn.setTitle("Nah", for: .normal)
+            ignoreBtn.setTitle("No", for: .normal)
             ignoreBtn.isHidden = false
             ignoreBtn.isEnabled = !busy
             break
@@ -108,6 +114,18 @@ class PlayerInfoTableViewCell: UITableViewCell {
             TestBtn.isEnabled = !busy
            // TestBtn.tag = index
           //  TestBtn.addTarget(self, action: Selector("buttonClicked:"), for: UIControlEvents.touchUpInside)
+            break
+        case "canChallenge":
+            delicnedOrBusyText.text = tooBusyText[Int(arc4random_uniform(4))]
+            delicnedOrBusyText.isHidden = false
+            
+            challengeBtn.setTitle("How dare you!", for: .normal)
+            challengeBtn.isHidden = false
+            challengeBtn.isEnabled = true
+            
+            ignoreBtn.setTitle("Ignore", for: .normal)
+            ignoreBtn.isHidden = false
+            ignoreBtn.isEnabled = true
             break
         default:
             TestBtn.isHidden = true

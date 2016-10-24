@@ -87,8 +87,9 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
         }
         else if(localPlayer.inbox[indexPath.row + 1] == true){ // yeah! only the second person in the list!
             cell.setState(for: player , with: "hasInvite", index: indexPath.row,localPlayerBusy)
-        }
-        else {
+        } else if player.activity != nil {
+            cell.setState(for: player, with: "canChallenge", index: indexPath.row, false)
+        } else {
             cell.setState(for: player , with: "canInvite", index: indexPath.row ,localPlayerBusy)
         }
         return cell
