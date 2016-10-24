@@ -216,7 +216,7 @@ class MessagesViewController: MSMessagesAppViewController {
     public func setStartWorking(){
         let playerInfo = gameData.value(forKey: "player"+String(localPlayerRegID)) as! PlayerInfo
         playerInfo.activity = Activity()
-        playerInfo.activity?.startTime = 123
+        playerInfo.activity?.startTime = NSDate().timeIntervalSince1970
         composeMessage()
     }
     

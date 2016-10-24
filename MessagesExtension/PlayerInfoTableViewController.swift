@@ -40,21 +40,40 @@ class PlayerInfoTableViewController: UIViewController,UITableViewDataSource,UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         //write the hearts and money count to labels and remove current player info from players to populate the table
-        playerMoneyCount.text = String(localPlayer.money)
+        
         playerName.text = localPlayer.name
+        playerMoneyCount.text = String(localPlayer.money)
         playerHeartsCount.text =  String(localPlayer.hearts)
         playerMoneyIcon.image = UIImage(named: "dollar")
         playerHeartsIcon.image = UIImage(named: "heart")
         BusyText.isHidden = true
         
         if((localPlayer.activity) != nil){
-            if(localPlayer.activity?.withPlayer == ""){
-               
-               BusyText.text = iAmBusyText[Int(arc4random_uniform(4))]
-               BusyText.isHidden = false
+            var currentTime = NSDate().timeIntervalSince1970
+            if(currentTime - (localPlayer.activity?.startTime)! > 15)
+            {
+                
+                
+                if(localPlayer.activity?.withPlayer == ""){
+                    playerMoneyCount.text = String(localPlayer.money+20)
+                   msgController?.gameData.player0?.money+=20
+                }else if(localPlayer.activity?.withPlayer != ""){
+                    playerHeartsCount.text = String(localPlayer.hearts+1)
+                    msgController?.gameData.player0?.hearts+=1
+                    msgController?.gameData.player1?.hearts+=1
+                    msgController?.gameData.player0?.inbox[1] = false
+                    msgController?.gameData.player1?.activity = nil
+                }
+                localPlayer.activity = nil
+                msgController?.gameData.player0?.activity = nil
+            }else{
+                if(localPlayer.activity?.withPlayer == ""){
+                    BusyText.text = iAmBusyText[Int(arc4random_uniform(4))]
+                    BusyText.isHidden = false
+                }
+                localPlayerBusy = true
+                startWorkingBtn.isHidden = true
             }
-            localPlayerBusy = true
-            startWorkingBtn.isHidden = true
         }
         tableView.dataSource=self
         tableView.delegate=self
